@@ -31,44 +31,96 @@ class ClimaVistaState extends State<ClimaVista> {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colorScheme = ColorScheme.fromSeed(seedColor: Colors.blue, brightness: Brightness.light); // Color scheme azul
+
     return Scaffold(
+      backgroundColor: colorScheme.background, // Usa el color de fondo predeterminado
       appBar: AppBar(
-        title: Text("Clima"),
+        backgroundColor: colorScheme.primary,
+        elevation: 2, // Reduce la elevación para una apariencia más plana
+        centerTitle: true,
+        title: Text(
+          "Clima",
+          style: TextStyle(fontWeight: FontWeight.w600, color: colorScheme.onPrimary), //Text color on the container
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Caja de texto para ingresar la ciudad
-            TextField(
-              controller: ciudadC,
-              decoration: InputDecoration(
-                labelText: "Ingresa la ciudad",
-                border: OutlineInputBorder(),
+      body: SingleChildScrollView( // Agregado para evitar overflow
+        child: Padding(
+          padding: const EdgeInsets.all(24.0), // Aumenta el padding
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start, // Alinea los widgets al inicio
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const SizedBox(height: 40), // Espacio superior
+
+              // Caja de texto para ingresar la ciudad
+              TextFormField(
+                controller: ciudadC,
+                style: TextStyle(fontSize: 18, color: colorScheme.onBackground), // Usar onSurface para el texto
+                decoration: InputDecoration(
+                  labelText: "Ingresa la ciudad",
+                  labelStyle: TextStyle(color: colorScheme.onSurfaceVariant), // Usa un color sutil para la etiqueta
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12), // Bordes redondeados
+                    borderSide: BorderSide.none, // Sin borde
+                  ),
+                  prefixIcon: Icon(Icons.search, color: colorScheme.primary),
+                  filled: true,
+                  fillColor: colorScheme.surfaceVariant, // Un tono sutil para el fondo
+                  hintStyle: TextStyle(color: colorScheme.onSurface.withOpacity(0.6)),
+                  hintText: 'Ej. Londres',
+                ),
               ),
-            ),
-            SizedBox(height: 10),
-            // Botón para ver el clima
-            ElevatedButton(
-              onPressed: obtenerYActualizarClima,
-              child: Text("Ver clima"),
-            ),
-            SizedBox(height: 20),
-            // Mostrar el clima si se obtuvo correctamente
-            if (climaModelo != null)
-              ClimaWidget(
-                ciudad: climaModelo!.ciudad,
-                temperatura: climaModelo!.temperatura,
-                descripcion: climaModelo!.descripcion,
+              const SizedBox(height: 24),
+
+              // Botón para ver el clima
+              ElevatedButton(
+                onPressed: obtenerYActualizarClima,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: colorScheme.primary,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  elevation: 1, // Sutil elevación
+                ),
+                child: Text(
+                  "Ver clima",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: colorScheme.onPrimary), // OnPrimary para el texto
+                ),
               ),
-            // Mostrar mensaje si no se pudo obtener el clima
-            if (climaModelo == null)
-              Text(
-                "No se pudo obtener el clima.",
-                style: TextStyle(color: Colors.red),
+
+              const SizedBox(height: 32),
+
+              // Mostrar el clima si se obtuvo correctamente
+              AnimatedSwitcher(  // Transición suave entre los widgets
+                duration: const Duration(milliseconds: 300),
+                child: climaModelo != null
+                    ? Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: colorScheme.surfaceVariant,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: ClimaWidget(
+                    ciudad: climaModelo!.ciudad,
+                    temperatura: climaModelo!.temperatura,
+                    descripcion: climaModelo!.descripcion,
+                  ),
+                )
+                    : Center(
+                  child: Text(
+                    "Ingresa una ciudad para ver el clima.",
+                    style: TextStyle(
+                      color: colorScheme.onSurfaceVariant,
+                      fontSize: 16,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ),
-          ],
+            ],
+          ),
         ),
       ),
     );
