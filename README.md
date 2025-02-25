@@ -1,16 +1,37 @@
-# widget_clima
+# Weather Widget 🌤️
 
-A new Flutter project.
+This is a simple, yet intuitive, weather widget developed in Flutter with Dart using the MVC design pattern. The widget allows users to search for a city's weather by entering the city's name, providing them with the current temperature in a beautifully designed interface.
 
-## Getting Started
+## Features 📓
+- Enter the name of any city to retrieve weather data.
+- Displays the temperature in a clean and visually appealing design.
+- Built with Flutter and Dart, following the MVC architecture.
 
-This project is a starting point for a Flutter application.
+## Requirements 🖥️
+- Android Studio
+- Flutter SDK
+- Dart
 
-A few resources to get you started if this is your first Flutter project:
+## Setup Instructions 🪛
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+1. **Clone the repository:**
+   Clone this repository to your local machine using the following command:
+   ```bash
+   git clone https://github.com/ejmerino/widget_clima.git
+2. **Open the project in Android Studio:**
+   Open the cloned project in Android Studio.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+4. **Run pub get:** In the terminal within Android Studio, run the following command to install dependencies:
+   ```bash
+   flutter pub get
+5. **Run the application:** After everything is set up, click "Run" to launch the Weather Widget.
+
+## Usage ⌨️
+
+1. Enter the name of any city in the search bar.
+2. The widget will fetch and display the current temperature for that city.
+
+## Author 👨‍💻
+Developed by: [@ejmerino](https://github.com/ejmerino)
+
+
